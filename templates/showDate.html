@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename= 'css/bootstrap.min.css') }}">
+  <!--Иконки-->
+  {{ fontawesome_html() }}
+  <script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>
+  <title>{{title}}</title>
+</head>
+<body>
+
+  <div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <span class="fs-4">Sports</span>
+      </a>
+    </header>
+  </div>
+  <div class="col-md-4 offset-md-4">
+{% block content %}
+              <div class="form-group">
+                <label for="team">Среднее</label>
+                  {{form.avg_date(class_="form-control")}}
+              </div>
+              <div class="form-group">
+                <label for="name">Максимальное</label>
+                  {{form.max_date(class_="form-control")}}
+              </div>
+              <div class="form-group">
+                <label for="game">Минимальное</label>
+                  {{form.min_date(class_="form-control")}}
+              </div>
+              <div class="form-group">
+               <a class="btn btn-outline-success" href="/" rel="nofollow">Назад</a>
+              </div>
+                {% endblock %}
+            </div>
+
+</body>
+</html>

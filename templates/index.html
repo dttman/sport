@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename= 'css/bootstrap.min.css') }}">
+  <!--Иконки-->
+  {{ fontawesome_html() }}
+  <script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>
+  <title>{{title}}</title>
+</head>
+<body>
+
+  <div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <span class="fs-4">Sports</span>
+      </a>
+    </header>
+  </div>
+  <div class="container">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">№</th>
+            <th scope="col">Команда
+              <a href="/sortdown/team">
+                <i class="fas fa-arrow-down"></i>
+              </a>
+              <a href="/sortup/team">
+                <i class="fas fa-arrow-up"></i>
+              </a>
+            </th>
+            <th scope="col">Название
+              <a href="/sortdown/name">
+                <i class="fas fa-arrow-down"></i>
+              </a>
+
+              <a href="/sortup/name">
+                <i class="fas fa-arrow-up"></i>
+              </a>
+            </th>
+            <th scope="col">Кол-во игр
+              <a href="/sortdown/game">
+                <i class="fas fa-arrow-down"></i>
+              </a>
+              <a href="/sortup/game">
+                <i class="fas fa-arrow-up"></i>
+              </a>
+            </th>
+            <th scope="col">Золото
+              <a href="/sortdown/gold">
+                <i class="fas fa-arrow-down"></i>
+              </a>
+              <a href="/sortup/gold">
+                <i class="fas fa-arrow-up"></i>
+              </a>
+            </th>
+            <th scope="col">Серебро
+              <a href="/sortdown/silver">
+                <i class="fas fa-arrow-down"></i>
+              </a>
+              <a href="/sortup/silver">
+                <i class="fas fa-arrow-up"></i>
+              </a>
+            </th>
+            <th scope="col">Бронза
+              <a href="/sortdown/bronze">
+                <i class="fas fa-arrow-down"></i>
+              </a>
+              <a href="/sortup/bronze">
+                <i class="fas fa-arrow-up"></i>
+              </a>
+            </th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in sports %}
+          <tr>
+            <td>{{loop.index}}</td>
+            <td>{{item["team"]}}</td>
+            <td>{{item["name"]}}</td>
+            <td>{{item["game"]}}</td>
+            <td>{{item["gold"]}}</td>
+            <td>{{item["silver"]}}</td>
+            <td>{{item["bronze"]}}</td>
+            <td>
+              <a class="btn btn-outline-success" href="/update/{{item['id']}}" rel="nofollow">Изменить</a>
+            </td>
+            <td>
+              <a class="btn btn-outline-danger" href="/delete_sport/{{item['id']}}" rel="nofollow">Удалить</a>
+            </td>
+          </tr>
+          {% endfor %}
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><a class="btn btn-outline-success" href="/date_for_col/game" rel="nofollow">Расчет</a></td>
+          <td><a class="btn btn-outline-success" href="/date_for_col/gold" rel="nofollow">Расчет</a></td>
+          <td><a class="btn btn-outline-success" href="/date_for_col/silver" rel="nofollow">Расчет</a></td>
+          <td><a class="btn btn-outline-success" href="/date_for_col/bronze" rel="nofollow">Расчет</a></td>
+        </tr>
+        </tbody>
+      </table>
+      <!-- Кнопка-триггер модального окна -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Добавить запись
+      </button>
+    </div>
+  </div>
+
+    <!-- Модальное окно добавления-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Добавление записи</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/add_sport" method="POST">
+              <div class="form-group">
+                <label for="team">Название команды</label>
+                <input name="team" type="text" class="form-control" id="team" aria-describedby="emailHelp"
+                  placeholder="Введите название команды">
+              </div>
+              <div class="form-group">
+                <label for="name">Название спорта</label>
+                <input name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp"
+                  placeholder="Введите название спорта">
+              </div>
+              <div class="form-group">
+                <label for="game">Количество игр</label>
+                <input name="game" type="text" class="form-control" id="game" aria-describedby="emailHelp"
+                  placeholder="Введите количество игр">
+              </div>
+              <div class="form-group">
+                <label for="gold">Количество золота</label>
+                <input name="gold" type="text" class="form-control" id="gold" aria-describedby="emailHelp"
+                  placeholder="Введите количество игр">
+              </div>
+              <div class="form-group">
+                <label for="silver">Количество серебра</label>
+                <input name="silver" type="text" class="form-control" id="silver" aria-describedby="emailHelp"
+                  placeholder="Введите количество серебра">
+              </div>
+              <div class="form-group">
+                <label for="bronze">Количество бронзы</label>
+                <input name="bronze" type="text" class="form-control" id="bronze" aria-describedby="emailHelp"
+                  placeholder="Введите количество бронзы">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary"> Сохранить изменения </button>
+              </div>
+            </form>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>
