@@ -4,7 +4,7 @@ from sqlalchemy import func, text, desc
 
 class Sport(db.Model):
     # Класс для работы с БД
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     team = db.Column(db.String(100))
     name = db.Column(db.String(100))
     game = db.Column(db.Integer)
@@ -59,7 +59,6 @@ class Sport(db.Model):
 
     #Добавление записи
     def add(self):
-        print('start2')
         try:
             db.session.add(self)
             db.session.commit()
